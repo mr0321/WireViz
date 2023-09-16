@@ -171,9 +171,12 @@ def component_table_entry(
         pn_info_string(HEADER_MPN, manufacturer, mpn),
         pn_info_string(HEADER_SPN, supplier, spn),
     ]
+    newtype = str(type)
+    lengthType = len(newtype)
     output = (f'{qty}'
               + (f' {unit}' if unit else '')
-              + f' x {type}'
+              + ' x' 
+              + (f' {newtype[4:lengthType - 1]}' if type else '')
               + ('<br/>' if any(part_number_list) else '')
               + (', '.join([pn for pn in part_number_list if pn])))
     # format the above output as left aligned text in a single visible cell

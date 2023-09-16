@@ -340,6 +340,19 @@ class Cable:
             return self.length
         elif qty_multiplier == 'total_length':
             return self.length * self.wirecount
+        elif 'multiply' in qty_multiplier:
+            values = re.findall(r"[-+]?(?:\d*\.*\d+)", qty_multiplier)
+            if values:
+                new_multiplier = float(values[0])
+                return new_multiplier * self.length
+            else:
+                return self.length
+        elif 'new_value' in qty_multiplier:
+            values = re.findall(r"[-+]?(?:\d*\.*\d+)", qty_multiplier)
+            if values:
+                return float(values[0])
+            else:
+                return self.length
         else:
             raise ValueError(f'invalid qty multiplier parameter for cable {qty_multiplier}')
 
